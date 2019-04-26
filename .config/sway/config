@@ -1,0 +1,364 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term tilix
+# Your preferred application launcher
+# Note: it's recommended that you pass the final command to sway
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu-wl_run -nf '#FFFFFF' -nb '#2E4057' -sb '#DA4167' -sf '#FFFFFF' -fn 'monospace-10' -p 'dmenu prompt &gt;'
+set $menu rofi -show drun
+set $move_menu rofi -show move
+set $rename_menu rofi -lines 0 -show rename
+set $workspace_menu rofi -show workspace
+
+set $lock '/home/depau/.bin/swaylock-blur -f'
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/depau/Pictures/godworepants.jpg fill
+
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+output eDP-1 {
+  scale 2
+}
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+exec swayidle -w \
+    timeout 300 $lock \
+    timeout 315 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep $lock
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+  natural_scroll enabled
+  dwt enabled
+  tap enabled
+}
+
+input "1386:20544:Wacom_Pen_and_multitouch_sensor_Finger"  {
+  map_to_output eDP-1
+}
+
+input "1386:20544:Wacom_Pen_and_multitouch_sensor_Pen"  {
+  map_to_output eDP-1
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_layout us
+  xkb_options shift:both_capslock_cancel,compose:caps
+}
+
+### Key bindings
+#
+# Basics:
+#
+    # start a terminal
+    bindsym $mod+Return exec $term
+
+    # kill focused window
+    bindsym $mod+Shift+q kill
+
+    # start your launcher
+    bindsym $mod+d exec $menu
+    bindsym $mod+Shift+d exec $workspace_menu
+    bindsym $mod+m exec $move_menu
+    bindsym $mod+Shift+r exec $rename_menu
+
+    # Mod+Tab workspace switch
+    bindsym $mod+Tab workspace next
+    bindsym $mod+Shift+Tab workspace prev
+    bindsym $mod+o workspace back_and_forth
+
+    # Lock screen
+    bindsym $mod+equal exec $lock
+
+    # Screenshots
+    bindsym Print+Control_R exec "/home/depau/.bin/fullscreen_screenshot.sh"
+    #bindsym Print+Shift exec "~/.bin/fullscreen_screenshot.sh"
+    #bindsym Print+Control_R exec "/home/depau/.bin/take_screenshot.sh"
+    bindsym Print+Shift+Control_R exec "~/.bin/take_screenshot.sh clipboard"
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+
+    bindsym XF86AudioRaiseVolume exec /home/depau/.bin/swayvol sink up
+
+    bindsym XF86AudioLowerVolume exec /home/depau/.bin/swayvol sink down
+
+    bindsym XF86AudioMute exec /home/depau/.bin/swayvol sink mute
+
+
+    bindsym XF86AudioMicMute exec /home/depau/.bin/swayvol source mute
+
+    bindsym XF86MonBrightnessUp exec ~/.bin/swaybrightness intel_backlight up
+
+    bindsym XF86MonBrightnessDown exec ~/.bin/swaybrightness intel_backlight down
+
+    bindsym XF86Explorer focus_follows_mouse no
+    bindsym XF86LaunchA focus_follows_mouse yes
+
+#    bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.quodlibet \
+#    /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+#
+#    bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.quodlibet \
+#    /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+#
+#
+#    bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.quodlibet \
+#    /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
+
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # _move_ the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # switch to workspace
+    bindsym $mod+1 workspace 1;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+2 workspace 2;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+3 workspace 3;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+4 workspace 4;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+5 workspace 5;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+6 workspace 6;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+7 workspace 7;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+8 workspace 8;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+9 workspace 9;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+0 workspace 10; exec ~/.bin/compact-workspaces.py
+
+    # alternative switch to workspace for ws > 4
+    bindsym $mod+Alt+1 workspace 5;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+2 workspace 6;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+3 workspace 7;  exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+4 workspace 8;  exec ~/.bin/compact-workspaces.py
+
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1; workspace 1;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+2 move container to workspace 2; workspace 2;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+3 move container to workspace 3; workspace 3;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+4 move container to workspace 4; workspace 4;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+5 move container to workspace 5; workspace 5;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+6 move container to workspace 6; workspace 6;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+7 move container to workspace 7; workspace 7;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+8 move container to workspace 8; workspace 8;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+9 move container to workspace 9; workspace 9;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Shift+0 move container to workspace 10; workspace 10; # exec ~/.bin/compact-workspaces.py
+
+    # alternative move to workspace for ws > 4
+    bindsym $mod+Alt+Shift+1 move container to workspace 5; workspace 5;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+Shift+2 move container to workspace 6; workspace 6;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+Shift+3 move container to workspace 7; workspace 7;   # exec ~/.bin/compact-workspaces.py
+    bindsym $mod+Alt+Shift+4 move container to workspace 8; workspace 8;   # exec ~/.bin/compact-workspaces.py
+ 
+
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # return to default mode
+    bindsym $mod+r mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    
+    swaybar_command waybar
+    
+    #position top
+
+    ## When the status_command prints a new line to stdout, swaybar updates.
+    ## The default just shows the current date and time.
+    ##status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    #status_command py3status -c ~/.config/i3status/config
+
+    #colors {
+    #    background #031A2E
+    #    statusline #FFFFFF
+    #    separator  #666666
+    #  
+    #    focused_workspace  #DA4167 #DA4167 #FFFFFF
+    #    active_workspace   #083D77 #083D77 #FFFFFF
+    #    inactive_workspace #031A2E #031A2E #888888
+    #    urgent_workspace   #F4D35E #F4D35E #000000
+    #    binding_mode       #2F343A #DA4167 #FFFFFF
+    #}
+
+    #icon_theme Adwaita
+}
+
+font "IBM Plex Mono 10"
+
+# class                 border  bground text    indicator child_border
+client.focused          #DA4167 #DA4167 #FFFFFF #a82645   #DA4167
+client.focused_inactive #000000 #000000 #FFFFFF #484E50   #5F676A
+client.unfocused        #000000 #000000 #888888 #292D2E   #222222
+client.urgent           #F4D35E #F4D35E #000000 #900000   #900000
+client.placeholder      #2E4057 #2E4057 #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
+default_border pixel 3
+hide_edge_borders --i3 smart
+
+# Make tray icons context menus go "close" to the bar
+for_window [floating app_id="waybar"] move position 700 0
+
+# Make sure JetBrains programs loading screens don't get tiled
+for_window [title=" " class="jetbrains-.+"] floating enable
+for_window [title="Import .+ Settings From .+" class="jetbrains-.+"] floating enable
+
+
+# Other useful daemons
+exec mako
+exec redshift -m wayland
+exec redshift-gtk
+exec /usr/lib/goa-daemon
+exec gnome-keyring-daemon
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec /home/depau/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox
+exec ibus-daemon
+exec nm-applet --indicator
+exec env QT_QPA_PLATFORM=xcb /home/depau/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
+
+include /etc/sway/config.d/*
