@@ -9,3 +9,4 @@ Configuration is managed with [GNU Stow](https://www.gnu.org/software/stow/): cl
 - sway-compact-workspaces: https://github.com/Depau/sway-compact-workspaces
 - sway-accel-rotate: https://github.com/Depau/sway-accel-rotate
 - waybar-netinfo: https://github.com/Depau/waybar-netinfo
+- swayvol: https://github.com/Depau/swayvol
