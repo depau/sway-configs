@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Show usage on --help
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] || [ "$1" == "" ]; then
+  echo "Usage: $0 [sink|source] [up|down|mute]"
+  exit 0
+fi
+
+# Validate target device type
+if [ "$1" != "sink" ] && [ "$1" != "source" ]; then
+  echo "Invalid target"
+  exit 1
+fi
+target="$1"
+
+# Get and validate action
+if [ "$2" == "up" ]; then
+  action="vol"
+  vol_offset="+5%"
+elif [ "$2" == "down" ]; then
+  action="vol"
+  vol_offset="-5%"
+elif [ "$2" == "mute" ]; then
+  action="mute"
+else
+  exit 1
+fi
+
+# Retrieve current status from PA
+pa_name_default="$(pacmd stat | grep "Default $target" | awk '{ print $4 }')"
+pa_index_default="$(pactl list short ${target}s | grep "$pa_name_default" | awk '{ print $1 }')"
+pa_desc_default="$(pacmd list-${target}s | sed -n "/$pa_name_default/,/device.description/p" | grep "device.description" | sed -e 's/\s*device.description = //g' -e 's/"//g')"
+
+# Set new volume/mute
+if [ $action == "vol" ]; then
+  pactl set-${target}-volume $pa_index_default $vol_offset
+else
+  pactl set-${target}-mute $pa_index_default toggle
+fi
+
+# Send notification
+
+# Get new volume for notification
+new_vol="$( pactl list ${target}s | grep '^[[:space:]]Volume:' | head -n $(( $pa_index_default + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )"
+vol_string="${new_vol}%"
+
+# Check whether device is muted
+muted=0
+pacmd list-${target}s | sed -n "/$pa_name_default/,/muted/p" | grep "muted" | grep -q yes && muted=1 && vol_string="muted"
+
+# Retrieve notification id
+notif_id_arg="-r $(cat /tmp/.swayvol-nid 2> /dev/null)"
+if [ "$notif_id_arg" == "-r " ]; then
+  notif_id_arg="-p"
+fi
+
+# Set emoji
+if [ $target = "source" ]; then
+  emoji="🎤"
+elif [ $muted == 1 ]; then
+  emoji="🔇"
+else
+  if [ $new_vol -gt 66 ]; then
+    emoji="🔊"
+  elif [ $new_vol -gt 33 ]; then
+    emoji="🔉"
+  else
+    emoji="🔈"
+  fi
+fi
+
+notify-send -p $notif_id_arg -t 1000 "$emoji $pa_desc_default" "Volume ${vol_string}" > /tmp/.swayvol-nid
+
