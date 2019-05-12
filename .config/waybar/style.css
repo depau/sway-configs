@@ -7,9 +7,9 @@
 }
 
 window#waybar {
-    background: rgba(0,0,0,0.7); /*#284c51;*/ /*#190b28;*/ /*rgba(43, 48, 59, 0.5);*/
+    background: rgba(20, 16, 33, 0.7); /*#284c51;*/ /*#190b28;*/ /*rgba(43, 48, 59, 0.5);*/
     border-bottom: 3px solid rgba(175, 175, 175, 0.4);
-    color: #ffffff;
+    color: #c4b7c5;
 }
 
 window#waybar.hidded {
@@ -20,12 +20,13 @@ window#waybar.hidded {
 #workspaces button {
     padding: 0 5px;
     background: transparent;
-    color: #ffffff;
+    color: #c4b7c5;
     border-bottom: 3px solid transparent;
 }
 
 #workspaces button.focused {
-    background: #64727D;
+    /*background: #64727D;*/
+    background: rgba(193, 103, 114, 0.3);
     border-bottom: 3px solid #ffffff;
 }
 
@@ -44,29 +45,16 @@ window#waybar.hidded {
 }
 
 #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor, #custom-netinfo {
+    color: #c4b7c5;
+    background: transparent;
     padding: 0 8px;
     margin: 0 4px;
-    border-bottom: 3px solid rgba(188, 188, 188, 0.5);
+    border-bottom: 3px solid transparent; /* rgba(188, 188, 188, 0.5);*/
 }
 
-#clock {
-    background-color: #007ea7;
+#tray {
+    -gtk-icon-effect: dim;
 }
-
-#battery.BAT0 {
-    background-color: #f7f052;
-    color: #000000;
-}
-
-#battery.wacom {
-    background-color: #258d12;
-}
-
-/*
-#battery.charging {
-    color: #ffffff;
-    background-color: #26A65B;
-}*/
 
 @keyframes blink {
     to {
@@ -76,7 +64,7 @@ window#waybar.hidded {
 }
 
 #battery.critical:not(.charging) {
-    background: #f53c3c;
+    background: #c16772;
     color: #ffffff;
     animation-name: blink;
     animation-duration: 0.5s;
@@ -85,96 +73,3 @@ window#waybar.hidded {
     animation-direction: alternate;
 }
 
-#cpu {
-    background: #cb1313;
-}
-
-#memory {
-    background: #d45d19;
-    color: #000000;
-    /*background: #540d6e;*/
-}
-
-#backlight {
-    background: #9ba199;
-}
-
-#network {
-    background: #407899;
-}
-
-#network.disconnected {
-    background: #f53c3c;
-}
-
-#custom-netinfo {
-    /*background: #407899;*/
-    background: #ffffff;
-    color: #000000;
-}
-
-#custom-netinfo.vpn {
-    background: #006099;
-    color: #ffffff;
-}
-
-#pulseaudio {
-    background: #64727D;
-    color: #000000;
-}
-
-#pulseaudio.muted {
-    background: #ffd23f;
-    color: #2a5c45;
-}
-
-#custom-media {
-    background: #66cc99;
-    color: #2a5c45;
-}
-
-.custom-spotify {
-    background: #66cc99;
-}
-
-.custom-vlc {
-    background: #ffa000;
-}
-
-#temperature {
-    background: #f0932b;
-}
-
-#temperature.critical {
-    background: #eb4d4b;
-}
-
-#tray {
-    background-color: #763eb9;
-}
-
-#idle_inhibitor {
-    background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#mpd {
-    background: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background: #f53c3c;
-}
-
-#mpd.stopped {
-    background: #90b1b1;
-}
-
-#mpd.paused {
-    background: #51a37a;
-}

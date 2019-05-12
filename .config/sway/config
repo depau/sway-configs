@@ -30,7 +30,7 @@ set $lock '~/.bin/swaylock-blur -f'
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg ~/Pictures/Wallpapers/archlinux_leaves.png fill
+output * bg ~/Pictures/Wallpapers/arch-retrowave.jpg fill
 
 #
 # Example configuration:
@@ -330,9 +330,9 @@ bar {
 font "IBM Plex Mono 10"
 
 # class                 border  bground text    indicator child_border
-client.focused          #DA4167 #DA4167 #FFFFFF #a82645   #DA4167
-client.focused_inactive #000000 #000000 #FFFFFF #484E50   #5F676A
-client.unfocused        #000000 #000000 #888888 #292D2E   #222222
+client.focused          #C16772 #C16772 #FFFFFF #FFA5A5   #FFA5A5
+client.focused_inactive #FFA5A5 #FFA5A5 #141021 #484E50   #5F676A
+client.unfocused        #141021 #141021 #8a7f8f #292D2E   #222222
 client.urgent           #F4D35E #F4D35E #000000 #900000   #900000
 client.placeholder      #2E4057 #2E4057 #FFFFFF #000000   #0C0C0C
 
