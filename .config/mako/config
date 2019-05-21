@@ -1,0 +1,6 @@
+default-timeout=15000
+max-visible=3
+background-color=#000000FF
+text-color=#FFFFFFFF
+border-color=#DA4167FF
+font=IBM Plex Mono 10
