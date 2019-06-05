@@ -63,7 +63,6 @@
     },
     "clock": {
         "format": "{:%H:%M  %a %d/%m}",
-        "format-alt": "{:%H:%M}",
         "tooltip-format": "{:%Y-%m-%d | %H:%M}"
     },
     "cpu": {
