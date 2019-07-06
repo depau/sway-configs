@@ -127,6 +127,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     bindsym $mod+equal exec $lock
 
     bindsym $mod+bracketright exec "/usr/local/bin/fix_clit_drift"
+    bindsym $mod+bracketleft exec "~/.bin/swaydpms on"
 
     # Screenshots
     bindsym Print+Control_R exec "~/.bin/fullscreen_screenshot.sh clipboard"

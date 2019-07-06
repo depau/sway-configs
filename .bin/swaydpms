@@ -1,0 +1,5 @@
+#!/bin/bash
+
+swaymsg -t get_outputs -r | jq '.[].name' -r | while read output; do
+  swaymsg output "$output" dpms $1
+done
