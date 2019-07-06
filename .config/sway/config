@@ -309,9 +309,9 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    
-    swaybar_command ~/.bin/waybar_wrapper.sh
+#bar {
+#    
+#    swaybar_command ~/.bin/waybar_wrapper.sh
     
     #position top
 
@@ -333,7 +333,7 @@ bar {
     #}
 
     #icon_theme Adwaita
-}
+#}
 
 font "IBM Plex Mono 10"
 
@@ -368,5 +368,6 @@ exec ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox
 exec ibus-daemon
 exec nm-applet --indicator
 exec env QT_QPA_PLATFORM=xcb ~/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
+exec ~/.bin/waybar_wrapper.sh
 
 include /etc/sway/config.d/*
