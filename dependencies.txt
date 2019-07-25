@@ -1,0 +1,19 @@
+mako
+rofi
+swaylock
+pavucontrol
+waybar
+nm-applet
+brightnessctl
+sway-accel-rotate
+redshift
+goa-daemon
+gnome-keyring
+polkit-gnome
+ibus
+grim
+wl-clipboard
+slurp
+imagemagick
+parallel
+notify-send nid
