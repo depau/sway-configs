@@ -2,6 +2,7 @@
 
 GEOMETRY=$(slurp -d)
 DATE=$(date +'%F %T')
+sleep 0.3
 case "$1" in
     clipboard) TMP=mktemp
                grim -g "$GEOMETRY" $TMP
