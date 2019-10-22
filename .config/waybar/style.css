@@ -26,8 +26,8 @@ window#waybar.hidded {
 
 #workspaces button.focused {
     /*background: #64727D;*/
-    background: rgba(193, 103, 114, 0.3);
-    border-bottom: 3px solid #ffffff;
+    background: rgba(255, 185, 99, 0.2);
+    border-bottom: 3px solid #DB9F56;
 }
 
 #workspaces button.urgent {
