@@ -1,0 +1,152 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 24, // Waybar height
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode", "custom/media", "sway/window"],
+    "modules-center": [],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "custom/netinfo", "cpu", "memory", "battery#rk-bat", "clock", "tray"],
+    // Modules configuration
+    // "sway/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "",
+    //         "2": "",
+    //         "3": "",
+    //         "4": "",
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+    // },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "interval": 2,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 8
+    },
+    "clock": {
+        "format": "{:%H:%M  %a %d/%m}",
+        "tooltip-format": "{:%Y-%m-%d | %H:%M}"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "on-click": "gnome-system-monitor"
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C ",
+        "format": "{temperatureC}°C "
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", ""]
+    },
+    "battery#rk-bat": {
+        "bat": "rk-bat",
+        "adapter": "dc-charger",
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "{icon} {capacity}%",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""],
+        "on-click": "gnome-power-statistics"
+    },
+    "battery#wacom": {
+        "bat": "wacom_battery_0",
+        "format": " {capacity}%"
+    },
+    "network": {
+        // "interface": "wlp2s0", // (Optional) To force the use of this interface
+        "format-wifi": " {essid}",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": "⚠ Disconnected",
+        "on-click": "nm-connection-editor"
+    },
+    "network#ipaddr": {
+        "format": "{ipaddr}/{cidr}",
+        "format-disconnected": "",
+        "on-click": "nm-connection-editor"
+    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["🔈", "🔉", "🔊"]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/netinfo": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.bin/waybar_netinfo",
+        "on-click": "killall -USR1 waybar_netinfo",
+        "on-click-right": "nm-connection-editor"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎶"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    }
+}
