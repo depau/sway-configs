@@ -1,15 +1,16 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "IBM Plex Mono", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-family: "SpaceMono Nerd Font Mono", "IBM Plex Mono", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(20, 16, 33, 0.7); /*#284c51;*/ /*#190b28;*/ /*rgba(43, 48, 59, 0.5);*/
-    border-bottom: 3px solid rgba(175, 175, 175, 0.4);
-    color: #c4b7c5;
+    /*background: #093D5B;*/ /*rgba(20, 16, 33, 0.7);*/ /*#284c51;*/ /*#190b28;*/ /*rgba(43, 48, 59, 0.5);*/
+    background: #4e342e;
+    /*border-bottom: 3px solid rgba(175, 175, 175, 0.4);*/
+    color: #ffffff;
 }
 
 window#waybar.hidded {
@@ -18,16 +19,24 @@ window#waybar.hidded {
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button {
-    padding: 0 5px;
+    padding: 0;
+    border: 0;
     background: transparent;
-    color: #c4b7c5;
-    border-bottom: 3px solid transparent;
+    margin-left: 2px;
+    margin-right: 2px;
+    color: white;
+    background: #694f47;
+    min-width: 0;
+}
+
+#workspaces button label {
+    margin: 0 4px;
 }
 
 #workspaces button.focused {
     /*background: #64727D;*/
-    background: rgba(255, 185, 99, 0.2);
-    border-bottom: 3px solid #DB9F56;
+    color: black;
+    background: #BEEF71;
 }
 
 #workspaces button.urgent {
@@ -45,16 +54,26 @@ window#waybar.hidded {
 }
 
 #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor, #custom-netinfo {
-    color: #c4b7c5;
-    background: transparent;
+    /*color: #ffffff;
+    background: transparent;*/
+    background: #694f47;
+    color: white;
     padding: 0 8px;
-    margin: 0 4px;
+    margin: 0 2px;
     border-bottom: 3px solid transparent; /* rgba(188, 188, 188, 0.5);*/
 }
 
-#tray {
-    -gtk-icon-effect: dim;
+#battery.BAT0, #cpu {
+    margin-right: 0;
 }
+
+#battery.wacom, #memory {
+    margin-left: 0;
+}
+
+/*#tray {
+    -gtk-icon-effect: dim;
+}*/
 
 @keyframes blink {
     to {
