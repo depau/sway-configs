@@ -1,27 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
+    "gtk-layer-shell": true,
     "height": 24, // Waybar height
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media", "sway/window"],
     "modules-center": [],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "custom/netinfo", "cpu", "memory", "battery#cw2015-battery", "clock", "tray"],
-    // Modules configuration
-    // "sway/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "backlight", "custom/netinfo", "cpu", "memory", "battery#BAT0", "clock"],
+
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -66,11 +51,11 @@
         "tooltip-format": "{:%Y-%m-%d | %H:%M}"
     },
     "cpu": {
-        "format": " {usage}%",
+        "format": "{usage}% ",
         "on-click": "gnome-system-monitor"
     },
     "memory": {
-        "format": " {}%"
+        "format": "{}% "
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -80,11 +65,13 @@
         "format": "{temperatureC}°C "
     },
     "backlight": {
-        // "device": "acpi_video1",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", ""]
+        "device": "edp-backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": [""],
+        "on-scroll-down": "brightnessctl set 2%-",
+        "on-scroll-up": "brightnessctl set 2%+"
     },
-    "battery#cw2015-battery": {
+    "battery#BAT0": {
         "bat": "cw2015-battery",
         "adapter": "dc-charger",
         "states": {
@@ -92,8 +79,8 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": "{icon} {capacity}%",
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""],
@@ -101,7 +88,8 @@
     },
     "battery#wacom": {
         "bat": "wacom_battery_0",
-        "format": " {capacity}%"
+        "format": "{capacity}% ",
+        "format-charging": "{capacity}% "
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
@@ -116,21 +104,41 @@
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
-        //"scroll-step": 1,
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon} {volume}%",
-        "format-muted": "🔇",
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "婢 {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
+            "headphone": "",
+            "hands-free": "",
             "headset": "",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["🔈", "🔉", "🔊"]
+            "default": ["墳"]
         },
         "on-click": "pavucontrol"
     },
+
+    //"pulseaudio": {
+    //    //"scroll-step": 1,
+    //    "format": "{icon} {volume}%",
+    //    "format-bluetooth": "{icon} {volume}%",
+    //    "format-muted": "🔇",
+    //    "format-icons": {
+    //        "headphones": "",
+    //        "handsfree": "",
+    //        "headset": "",
+    //        "phone": "",
+    //        "portable": "",
+    //        "car": "",
+    //        "default": ["🔈", "🔉", "🔊"]
+    //    },
+    //    "on-click": "pavucontrol"
+    //},
     "custom/netinfo": {
         "format": "{}",
         "return-type": "json",
