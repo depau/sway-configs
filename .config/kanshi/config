@@ -18,3 +18,10 @@ profile {
   output "Acer Technologies Acer AL1717 ETL5409001   " mode 1280x1024@75.025002 position 1920,100
   output "Philips Consumer Electronics Company PHL 243V5 ZV02010020570" mode 1920x1080 position 0,0
 }
+
+profile {
+  output "Acer Technologies Acer AL1717 ETL5409001   " mode 1280x1024@75.025002 position 1920,100
+  output "Philips Consumer Electronics Company PHL 243V5 ZV02010020570" mode 1920x1080 position 0,0
+  output "HEADLESS-1" mode 1280x800 scale 1.2 position 853,1080
+}
+
