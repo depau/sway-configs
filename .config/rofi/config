@@ -1,5 +1,5 @@
 ! "Enabled modi" Set from: Default
-rofi.modi:                           window,drun,workspace:.bin/goto_workspace.sh,move:.bin/move_to_workspace.sh,rename:.bin/rename_workspace.sh,ssh
+rofi.modi:                           window,drun,workspace:~/.bin/goto_workspace.sh,rename:~/.bin/rename_workspace.sh,move:~/.bin/move_to_workspace.sh,ssh
 ! "Window width" Set from: Default
 ! rofi.width:                          50
 ! "Number of lines" Set from: Default
