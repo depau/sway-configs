@@ -5,7 +5,7 @@
     "height": 24, // Waybar height
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media", "sway/window"],
     "modules-center": [],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "backlight", "custom/netinfo", "cpu", "memory", "battery#wacom", "battery#BAT0", "clock"],
+    "modules-right": ["custom/waybar-mpris", "tray", "idle_inhibitor", "pulseaudio", "backlight", "custom/netinfo", "cpu", "memory", "battery#wacom", "battery#BAT0", "clock"],
 
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
@@ -156,5 +156,16 @@
         },
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-    }
+    },
+    "custom/waybar-mpris": {
+        "return-type": "json",
+        "exec": "waybar-mpris --autofocus --play '▶ ' --pause ' '",
+        "on-click": "waybar-mpris --send toggle",
+        "on-click-right": "waybar-mpris --send player-next",
+        "on-scroll-up": "waybar-mpris --send player-next",
+        "on-scroll-down": "waybar-mpris --send player-prev",
+        // "on-scroll-up": "waybar-mpris --send next",
+        // "on-scroll-down": "waybar-mpris --send prev",
+        "escape": true,
+    },
 }
