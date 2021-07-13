@@ -134,7 +134,7 @@
 
 #mode {
     background: #64727D;
-    border-top: 2px solid white;
+    border-bottom: 2px solid white;
     /* To compensate for the top border and still have vertical centering */
     padding-bottom: 2px;
 }
@@ -179,18 +179,19 @@
 }
 
 #workspaces button {
-    border-top: 2px solid transparent;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     /* To compensate for the top border and still have vertical centering */
     padding-bottom: 2px;
-    padding-left: 5px;
-    padding-right: 5px;
+    margin-left: 0;
+    margin-right: 0;
     color: #888888;
+    min-width: 32px;
 }
 
 #workspaces button.focused {
-    border-color: #d9ff9e;
-    color: black;
-    background-color: #BEEF71;
+    border-color: white;
+    color: white;
+    background-color: #F06292;
 }
 
 #workspaces button.urgent {
