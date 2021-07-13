@@ -1,10 +1,10 @@
 #!/bin/bash
 
-killall kanshi
+pkill kanshi >/dev/null 2>&1
 
-if pgrep kanshi >/dev/null; then
-    killall -9 kanshi
+if pgrep kanshi >/dev/null 2>&1; then
+    pkill -9 kanshi
 fi
 
-setsid kanshi 2>&1 >/dev/null & disown
+setsid kanshi >/dev/null 2>&1 & disown
 wait
