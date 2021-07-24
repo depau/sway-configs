@@ -27,9 +27,9 @@ else
 fi
 
 # Retrieve current status from PA
-pa_name_default="$(pacmd stat | grep "Default $target" | awk '{ print $4 }')"
+pa_name_default="$(pactl info | grep -i "Default $target" | awk '{ print $3 }')"
 pa_index_default="$(pactl list short ${target}s | grep "$pa_name_default" | awk '{ print $1 }')"
-pa_desc_default="$(pacmd list-${target}s | sed -n "/$pa_name_default/,/device.description/p" | grep "device.description" | sed -e 's/\s*device.description = //g' -e 's/"//g')"
+pa_desc_default="$(pactl list ${target}s | grep -A 200 "$pa_name_default" | grep device.description | head -n1 | grep -oP '(?<=device\.description = ").+(?=")')"
 
 # Set new volume/mute
 if [ $action == "vol" ]; then
@@ -41,12 +41,12 @@ fi
 # Send notification
 
 # Get new volume for notification
-new_vol="$( pactl list ${target}s | grep '^[[:space:]]Volume:' | head -n $(( $pa_index_default + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )"
+new_vol="$( pactl list ${target}s | grep -A 100 "$pa_name_default" | grep '^[[:space:]]Volume:' | head -n1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )"
 vol_string="${new_vol}%"
 
 # Check whether device is muted
 muted=0
-pacmd list-${target}s | sed -n "/$pa_name_default/,/muted/p" | grep "muted" | grep -q yes && muted=1 && vol_string="muted"
+pactl list ${target}s | grep -A 100 "$pa_name_default" | grep "Mute:" | head -n1 | grep -q yes && muted=1 && vol_string="muted"
 
 # Retrieve notification id
 notif_id_arg="-r $(cat /tmp/.swayvol-nid 2> /dev/null)"
