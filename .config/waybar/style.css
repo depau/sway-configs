@@ -48,10 +48,13 @@
 
 /* The whole bar */
 #waybar {
-    background: #323232;
-    color: white;
-    font-family: Cantarell, Noto Sans, sans-serif;
+    background: #ffcc2c;
+    color: #5f0e05;
+    font-family: Iosevka Tacos, Cantarell, Noto Sans, sans-serif;
     font-size: 13px;
+    border-bottom: 5px solid #5f0e05;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
 }
 
 /* Each module */
@@ -66,11 +69,54 @@
 #network,
 #pulseaudio,
 #temperature,
-#tray {
-    padding-left: 10px;
-    padding-right: 10px;
+#tray,
+#workspaces button {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #fbac05;
+    color: #5f0e05;
+    /*border-bottom: 2px solid #5f0e05;*/
+    border-radius: 10px;
+    margin-top: 2px;
+    margin-bottom: 7px;
+	min-width: 20px;
 }
 
+#window,
+#custom-waybar-mpris {
+    margin-top: 2px;
+    margin-bottom: 7px;
+}
+
+#workspaces button {
+    padding: 0;
+}
+
+#workspaces button.focused {
+    color: #ffcc2c;
+    /*color: #fbac05;*/
+    background: #5f0e05;
+}
+
+#workspaces button.urgent {
+    background: #f73141;
+    color: #ffcc2c;
+}
+
+#tray widget {
+    padding: 0;
+    margin: 0;
+}
+
+#tray widget image {
+	background: #5f0e05;
+	border-radius: 13px;
+	padding-left: 2px;
+	padding-right: 2px;
+    min-width: 0;
+}
 
 /* -----------------------------------------------------------------------------
  * Module styles
@@ -178,23 +224,3 @@
     padding-right: 10px;
 }
 
-#workspaces button {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-    /* To compensate for the top border and still have vertical centering */
-    padding-bottom: 2px;
-    margin-left: 0;
-    margin-right: 0;
-    color: #888888;
-    min-width: 32px;
-}
-
-#workspaces button.focused {
-    border-color: white;
-    color: white;
-    background-color: #F06292;
-}
-
-#workspaces button.urgent {
-    border-color: #c9545d;
-    color: #c9545d;
-}

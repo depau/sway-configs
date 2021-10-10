@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+
+output="$1"
+file="$2"
+
+# shellcheck disable=SC2207
+res=($(swaymsg -t get_outputs -r | jq -r 'map(select(.name == "'"$output"'")) | .[].current_mode | .width, .height'))
+width="${res[0]}"
+height="${res[1]}"
+
+set -o nounset
+
+overlay="$HOME/.config/sway/images/tacos-transp.png"
+
+if [[ "$width" == 3000 ]]; then
+    overlay="$HOME/.config/sway/images/tacos-transp-three-halves.png"
+elif [[ "$width" -gt 1920 ]]; then
+    overlay="$HOME/.config/sway/images/tacos-transp-4k.png"
+fi
+
+magickres="${width}x${height}"
+
+grim -t jpeg -q 97 -o "$output" "${file}"
+magick convert \( \
+        "$file" -colorspace gray -fill '#ff6385' -tint 100  \
+        -filter Gaussian -resize 2% -filter Point  -resize "${magickres}" \
+        -geometry "${magickres}^" -repage "${magickres}+0+0" \
+    \) \( \
+        "$overlay" -resize "${magickres}^" -gravity center -repage "${magickres}+0+0" \
+    \) \
+    -compose Over -layers merge  -crop "${magickres}" +repage "${file}"
+
+sync "$file"

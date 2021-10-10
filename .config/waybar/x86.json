@@ -167,5 +167,6 @@
         // "on-scroll-up": "waybar-mpris --send next",
         // "on-scroll-down": "waybar-mpris --send prev",
         "escape": true,
+        "max-length": 100
     },
 }

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+image_prefix=/tmp/.swaylock.
+image_ext=".jpg"
+
+# shellcheck disable=SC2207
+outputs=($(swaymsg -rt get_outputs | jq '.[].name' -r))
+
+images_arg=()
+for output in "${outputs[@]}"; do
+    images_arg+=(-i "$output:${image_prefix}${output}${image_ext}")
+done
+
+printf "%s\n" "${outputs[@]}" | parallel "swaylock-tacos-render {} '${image_prefix}{}${image_ext}'"
+
+swaylock "${images_arg[@]}" --color ff6385 --ring-color 9cc40d --ring-clear-color 9cc40d --ring-wrong-color 3eb512 \
+    --inside-color a05a0e --key-hl-color e0ee24 --inside-clear-color e0ee24 --inside-wrong-color f52f03 \
+    --line-color 5f0e05 --inside-ver-color 5f0e05 --ring-ver-color ffcc2c --text-color ffcc2c \
+    --text-clear-color 5f0e05 --text-ver-color ffcc2c --text-wrong-color ffffff --bs-hl-color f52f03 \
+    --font 'Iosevka Tacos' "${@}"
+
+sleep 0.5
+
+for output in "${outputs[@]}"; do
+    rm "${image_prefix}${output}${image_ext}"
+done
