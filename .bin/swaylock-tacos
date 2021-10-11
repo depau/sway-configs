@@ -17,7 +17,7 @@ done
 
 printf "%s\n" "${outputs[@]}" | parallel "swaylock-tacos-render {} '${image_prefix}{}${image_ext}'"
 
-swaylock "${images_arg[@]}" --color ff6385 --ring-color 9cc40d --ring-clear-color 9cc40d --ring-wrong-color 3eb512 \
+swaylock "${images_arg[@]}" -f --color ff6385 --ring-color 9cc40d --ring-clear-color 9cc40d --ring-wrong-color 3eb512 \
     --inside-color a05a0e --key-hl-color e0ee24 --inside-clear-color e0ee24 --inside-wrong-color f52f03 \
     --line-color 5f0e05 --inside-ver-color 5f0e05 --ring-ver-color ffcc2c --text-color ffcc2c \
     --text-clear-color 5f0e05 --text-ver-color ffcc2c --text-wrong-color ffffff --bs-hl-color f52f03 \
