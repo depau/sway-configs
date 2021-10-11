@@ -7,21 +7,25 @@ output="$1"
 file="$2"
 
 # shellcheck disable=SC2207
-res=($(swaymsg -t get_outputs -r | jq -r 'map(select(.name == "'"$output"'")) | .[].current_mode | .width, .height'))
+res=($(swaymsg -t get_outputs -r | jq -r 'map(select(.name == "'"$output"'")) | .[] | .current_mode.width, .current_mode.height, .transform'))
 width="${res[0]}"
 height="${res[1]}"
+transform="${res[2]}"
 
 set -o nounset
 
 overlay="$HOME/.config/sway/images/tacos-transp.png"
 
+magickres="${width}x${height}"
+
 if [[ "$width" == 3000 ]]; then
     overlay="$HOME/.config/sway/images/tacos-transp-three-halves.png"
 elif [[ "$width" -gt 1920 ]]; then
     overlay="$HOME/.config/sway/images/tacos-transp-4k.png"
+elif [[ "$transform" == 90 ]] || [[ "$transform" == 270 ]]; then
+    overlay="$HOME/.config/sway/images/tacos-transp-vert.png"
+    magickres="${height}x${width}"
 fi
-
-magickres="${width}x${height}"
 
 grim -t jpeg -q 97 -o "$output" "${file}"
 magick convert \( \
