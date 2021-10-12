@@ -1,6 +1,7 @@
 default-timeout=15000
-max-visible=3
-background-color=#000000FF
-text-color=#FFFFFFFF
-border-color=#DA4167FF
-font=IBM Plex Mono 10
+max-visible=4
+background-color=#ffcc2cFF
+text-color=#5f0e05FF
+border-color=#5f0e05FF
+border-size=5
+font=Iosevka Tacos 10
